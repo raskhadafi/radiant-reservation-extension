@@ -8,7 +8,7 @@ class Admin::ReservationsController < ApplicationController
 
   def new
     @reservation = Reservation.new
-    render(:action => 'index')
+    render(:action => 'edit')
   end
 
 end
