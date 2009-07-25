@@ -1,0 +1,27 @@
+- content_for 'page_css' do
+  :sass
+    p.title
+      margin: 10px 0 !important
+
+    #content .form-area div.error-with-field
+      input.textbox
+        font-family: Georgia,Palatino,"Times New Roman",Times,serif
+        font-size: 200%
+        width: 100%
+
+%h1= @reservation_subscriber.new_record? ? 'New Subscriber' : 'Edit Subscriber'
+
+- form_for [:admin, @reservation_subscriber] do |f|
+  .form-area
+    %p.title
+      %label Name
+      = f.text_field :first_name, :class => 'textbox'
+    %p.title
+      %label Description
+      = f.text_area :note, :class => 'textbox'
+    
+  %p.buttons
+    - button_text = @reservation_subscriber.new_record? ? 'Create' : 'Save Changes'
+    = submit_tag button_text, :class => 'button'
+    or
+    = link_to 'Cancel', admin_reservation_subscribers_url

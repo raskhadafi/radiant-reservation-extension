@@ -1,0 +1,29 @@
+- content_for 'page_css' do
+  :sass
+    p.title
+      margin: 10px 0 !important
+
+    #content .form-area div.error-with-field
+      input.textbox
+        font-family: Georgia,Palatino,"Times New Roman",Times,serif
+        font-size: 200%
+        width: 100%
+
+= calendar_date_select_includes
+
+%h1= @reservation_item.new_record? ? 'New Item' : 'Edit Item'
+
+- form_for [:admin, @reservation_item] do |f|
+  .form-area
+    %p.title
+      %label Name
+      = f.text_field :name, :class => 'textbox'
+    %p.title
+      %label Description
+      = f.text_area :description, :class => 'textbox'
+    
+  %p.buttons
+    - button_text = @reservation_item.new_record? ? 'Create' : 'Save Changes'
+    = submit_tag button_text, :class => 'button'
+    or
+    = link_to 'Cancel', admin_reservation_items_url

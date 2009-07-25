@@ -1,0 +1,68 @@
+- content_for 'page_css' do
+  :sass
+    p.new
+      a
+        color: #000
+        border: 1px solid #ddf
+        padding: 6px
+        text-decoration: none
+
+        &:hover
+          background: #efefff
+
+    th.remove
+      width: 100px
+
+    td.remove
+      width: 100px
+      font-size: 0.8em
+      vertical-align: center
+
+      a
+        text-decoration: none
+        color: #000
+
+      img
+        margin-bottom: 3px
+
+    #content #reservation-items.index .page .info
+      top: 0
+
+%h1 Reservation items
+
+%table#reservation-items.index{:summary => "Listing of Reservation Items"}
+  %thead
+    %tr
+      %th.name Name
+      %th.description Description
+      %th.modify Remove
+  %tbody
+    - if @reservation_items.empty?
+      %tr
+        %td.note{:colspan => 3} No items
+    - else 
+      - @reservation_items.each do |reservation_item|
+        %tr.node.level-1{:id => "event-#{reservation_item.id}"}
+          %td.page
+            %span.w1
+              = link_to reservation_item.name, edit_admin_reservation_item_url(reservation_item)
+
+          %td.reservation-item= reservation_item.description
+          %td.remove
+            = link_to("#{image('minus.png')} Remove", admin_reservation_item_url(reservation_item), :method => :delete, :alt => 'remove item', :confirm => 'Are you sure? This will delete the item!')
+
+%p.new= link_to('New Item', new_admin_reservation_item_url)
+
+%br
+
+%h1 Subscriber
+
+%table#reservation-subscriber.index{:summary => "Listing of all Subscribers"}
+  %thead
+    %tr
+      %th.name Name
+      %th.phone Phone number
+      %th.modify Remove
+  %tbody
+
+%p.new= link_to('New Subscriber', new_admin_reservation_subscriber_url)
