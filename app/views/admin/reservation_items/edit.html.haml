@@ -9,8 +9,6 @@
         font-size: 200%
         width: 100%
 
-= calendar_date_select_includes
-
 %h1= @reservation_item.new_record? ? 'New Item' : 'Edit Item'
 
 - form_for [:admin, @reservation_item] do |f|
@@ -26,4 +24,4 @@
     - button_text = @reservation_item.new_record? ? 'Create' : 'Save Changes'
     = submit_tag button_text, :class => 'button'
     or
-    = link_to 'Cancel', admin_reservation_items_url
+    = link_to 'Cancel', admin_reservations_url

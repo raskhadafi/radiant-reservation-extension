@@ -14,14 +14,29 @@
 - form_for [:admin, @reservation_subscriber] do |f|
   .form-area
     %p.title
-      %label Name
+      %label User name
+      = f.text_field :user_name, :class => 'textbox'
+    %p.title
+      %label Password
+      = f.text_field :password, :class => 'textbox', :type => "password"
+    %p.title
+      %label First name
       = f.text_field :first_name, :class => 'textbox'
     %p.title
-      %label Description
-      = f.text_area :note, :class => 'textbox'
+      %label Last name
+      = f.text_field :last_name, :class => 'textbox'
+    %p.title
+      %label Phone number
+      = f.text_field :phone, :class => 'textbox'
+    %p.title
+      %label E-Mail
+      = f.text_field :email, :class => 'textbox'
+    %p.title
+      %label Addresse
+      = f.text_area :address, :class => 'textbox'
     
   %p.buttons
     - button_text = @reservation_subscriber.new_record? ? 'Create' : 'Save Changes'
     = submit_tag button_text, :class => 'button'
     or
-    = link_to 'Cancel', admin_reservation_subscribers_url
+    = link_to 'Cancel', admin_reservations_url

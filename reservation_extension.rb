@@ -8,16 +8,16 @@ class ReservationExtension < Radiant::Extension
   
   define_routes do |map|
     map.namespace :admin, :member => { :remove => :get } do |admin|
-      admin.resources :reservation_items, :reservation_subscribers
+      admin.resources :reservations, :reservation_items, :reservation_subscribers
     end
   end
   
   def activate
-    admin.tabs.add "Reservation", "/admin/reservation_items", :after => "Layouts", :visibility => [:all]
+    admin.tabs.add "Reservation Sytem", "/admin/reservations", :after => "Layouts", :visibility => [:all]
   end
   
   def deactivate
-    admin.tabs.remove "Reservation"
+    admin.tabs.remove "Reservation System"
   end
   
 end
