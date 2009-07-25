@@ -13,11 +13,11 @@ class ReservationExtension < Radiant::Extension
   end
   
   def activate
-    admin.tabs.add "Reservation Sytem", "/admin/reservations", :after => "Layouts", :visibility => [:all]
+    admin.tabs.add "Reservations", "/admin/reservations", :after => "Layouts", :visibility => [:all]
   end
   
   def deactivate
-    admin.tabs.remove "Reservation System"
+    admin.tabs.remove "Reservations"
   end
   
 end
