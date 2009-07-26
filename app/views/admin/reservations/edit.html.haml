@@ -24,6 +24,7 @@
     %p.title
       %label To
       = calendar_date_select :reservation, :to, :time => true, :embedded => true, :class => 'textbox'
+      = f.hidden_field :reservation_item, :value => @reservation_item.id
     
   %p.buttons
     - button_text = @reservation.new_record? ? 'Create' : 'Save Changes'

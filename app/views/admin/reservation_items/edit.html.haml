@@ -46,15 +46,25 @@
       %th Subscriber
       %th From
       %th To
+      %th Edit
   %tbody
     - if @reservation_item.reservations.empty?
       %tr
-        %td.note{:colspan => 3} No reservations
+        %td.note{:colspan => 4} No reservations
     - else
       - @reservation_item.reservations.each do |reservation|
         %tr.node.level-1{:id => "reservation-#{reservation.id}"}
           %td.page
             %span.w1
-              = link_to reservation.name, edit_admin_reservation_url(reservation)
+              = link_to reservation.reservation_subscriber.first_name, edit_admin_reservation_url(reservation)
+          %td.page
+            %span
+            = reservation.from.strftime("%d. %B %Y [%H:%m]")
+          %td.page
+            %span
+            = reservation.to.strftime("%d. %B %Y [%H:%m]")
+          %td.remove
+            = link_to("#{image('minus.png')} Remove", admin_reservation_url(reservation), :method => :delete, :alt => 'remove item', :confirm => 'Are you sure? This will delete the reservation!')
+
 
 %p.new= link_to 'New Reservation', :id => @reservation_item.id, :controller => 'reservations', :action => :new
