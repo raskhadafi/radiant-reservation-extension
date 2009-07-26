@@ -1,13 +1,28 @@
+- include_javascript 'admin/reservation'
 - content_for 'page_css' do
   :sass
+    p.new
+      a
+        color: #000
+        border: 1px solid #ddf
+        padding: 6px
+        text-decoration: none
+  
+        &:hover
+          background: #efefff
     p.title
       margin: 10px 0 !important
 
-    #content .form-area div.error-with-field
-      input.textbox
-        font-family: Georgia,Palatino,"Times New Roman",Times,serif
-        font-size: 200%
-        width: 100%
+    #content 
+      .form-area
+        div.error-with-field
+          input.textbox
+            font-family: Georgia,Palatino,"Times New Roman",Times,serif
+            font-size: 200%
+            width: 100%
+      table.index
+        th
+          font-weight: bold
 
 %h1= @reservation_item.new_record? ? 'New Item' : 'Edit Item'
 
@@ -19,9 +34,27 @@
     %p.title
       %label Description
       = f.text_area :description, :class => 'textbox'
-    
   %p.buttons
     - button_text = @reservation_item.new_record? ? 'Create' : 'Save Changes'
     = submit_tag button_text, :class => 'button'
     or
     = link_to 'Cancel', admin_reservations_url
+
+%table#reservation_item.index{:summary => "Listing of Reservations"}
+  %thead
+    %tr 
+      %th Subscriber
+      %th From
+      %th To
+  %tbody
+    - if @reservation_item.reservations.empty?
+      %tr
+        %td.note{:colspan => 3} No reservations
+    - else
+      - @reservation_item.reservations.each do |reservation|
+        %tr.node.level-1{:id => "reservation-#{reservation.id}"}
+          %td.page
+            %span.w1
+              = link_to reservation.name, edit_admin_reservation_url(reservation)
+
+%p.new= link_to 'New Reservation', :id => @reservation_item.id, :controller => 'reservations', :action => :new
