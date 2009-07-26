@@ -1,0 +1,32 @@
+- content_for 'page_css' do
+  :sass
+    p.title
+      margin: 10px 0 !important
+
+    #content .form-area div.error-with-field
+      input.textbox
+        font-family: Georgia,Palatino,"Times New Roman",Times,serif
+        font-size: 200%
+        width: 100%
+
+= calendar_date_select_includes
+
+%h1= @reservation.new_record? ? 'New Reservation of '+@reservation_item.name : 'Edit Reservation of '+@reservation_item.name
+
+- form_for [:admin, @reservation] do |f|
+  .form-area
+    %p.title
+      %label Subscriber
+      = f.select :reservation_subscriber, @reservation_subscriber.collect{|l| [l.first_name+' '+l.last_name, l.id]}
+    %p.title
+      %label From
+      = calendar_date_select :reservation, :from, :time => true, :embedded => true, :class => 'textbox'
+    %p.title
+      %label To
+      = calendar_date_select :reservation, :to, :time => true, :embedded => true, :class => 'textbox'
+    
+  %p.buttons
+    - button_text = @reservation.new_record? ? 'Create' : 'Save Changes'
+    = submit_tag button_text, :class => 'button'
+    or
+    = link_to('Cancel', :back)

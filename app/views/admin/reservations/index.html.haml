@@ -45,7 +45,7 @@
         %td.note{:colspan => 3} No items
     - else 
       - @reservation_items.each do |reservation_item|
-        %tr.node.level-1{:id => "event-#{reservation_item.id}"}
+        %tr.node.level-1{:id => "reservation-#{reservation_item.id}"}
           %td.page
             %span.w1
               = link_to reservation_item.name, edit_admin_reservation_item_url(reservation_item)
